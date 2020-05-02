@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { TranslatorProvider } from 'react-translate';
 import styled from 'styled-components';
 import ContainerApp from './ContainerApp';
 
 import es from '../Translate/es.json';
+import en from '../Translate/en.json';
 
 import Store from '../Store';
 import Login from '../Login';
@@ -20,27 +21,24 @@ const AppStyled = styled.div`
 `;
 
 const App = () => {
+    const [selectedLanguage, setSelectedLanguge] = useState('es');
 
     const translations = {
-        locale: 'es',
-        data: es,
+        locale: selectedLanguage,
+        data: selectedLanguage === 'es' ? es : en,
     }
 
     return (
         <TranslatorProvider translations={translations}>
             <AppStyled >
-                {/* <BackgroundMain top="0px" /> */}
                 <Router>
                     <Switch>
-                        <Route path="/home" render={props => <Store><ContainerApp {...props} /></Store>} />
+                        <Route path="/home" render={props => <Store>
+                            <ContainerApp
+                                selectedLanguage={selectedLanguage}
+                                setSelectedLanguge={setSelectedLanguge}
+                                {...props} /></Store>} />
                         <Route path="/" render={props => <Store><Login {...props} /></Store>} />
-                        {/* <Route path="/home" component={ContainerApp} /> */}
-                        {/* <Route path="/dashboard" render={props => <Store><ContainerMain {...props} /></Store>} /> */}
-
-
-                        {/* <Route path="/home" component={ContainerMain}/>
-                  <Route path="/dashboard" component={ContainerMain}/>
-                  <Route path="/" component={Login}/> */}
                     </Switch>
                 </Router>
 

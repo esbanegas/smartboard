@@ -39,11 +39,11 @@ const TeacherProfile = () => {
 
     return (
         <TeacherProfileStyled>
-            {/* <h1>Teacher Profile</h1> */}
+            <h1>Teacher Profile</h1>
 
             
 
-            {/* <div className="profile">
+            <div className="profile">
                 <Persona
                     {...examplePersona}
                     size={PersonaSize.size120}
@@ -51,7 +51,7 @@ const TeacherProfile = () => {
                     // hidePersonaDetails={!renderDetails}
                     imageAlt="Annie Lindqvist, status is away"
                 />
-            </div> */}
+            </div>
 
         </TeacherProfileStyled>
     )

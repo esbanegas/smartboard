@@ -70,7 +70,7 @@ const ContainerAppStyled = styled.div`
 //     )
 // }
 
-const ContainerApp = ({ history, dispatch }) => {
+const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const routeComponents = useMemo(() => {
@@ -108,7 +108,8 @@ const ContainerApp = ({ history, dispatch }) => {
     return <ContainerAppStyled isCollapsed={isCollapsed}>
         {/* <BackgroundMain top="70px" /> */}
 
-        <HeaderApp />
+        <HeaderApp selectedLanguage={selectedLanguage}
+            setSelectedLanguge={setSelectedLanguge} />
 
         <div className="menu">
             <IconButton

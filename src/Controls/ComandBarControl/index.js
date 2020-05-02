@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { CommandBar } from '@fluentui/react';
-import { utils } from '../../utils';
+
+import { materializeLeftCommnads, materializeRigthCommnads } from './setting';
 
 const CommandBarControlStyled = styled.div`
     .command-bar {
@@ -25,53 +26,19 @@ const CommandBarControlStyled = styled.div`
     }
 `;
 
-export const CommandBarControl = ({ items }) => {
+export const CommandBarControl = ({ items, rightCommands }) => {
 
-    const commandItems = items.map((item, index) => {
-        const { iconName, subMenu, split } = item;
+    const leftCommands = useMemo(() => materializeLeftCommnads(items), [items]);
 
-        let commandItem = {
-            key: `${item.text}-${index}`,
-            text: item.text,
-            ariaLabel: item.text,
-            disabled: item.disabled || null,
-            onClick: item.onClick
-        };
+    const farItems = useMemo(() => materializeRigthCommnads(rightCommands), [rightCommands]);
 
-        if (split) {
-            commandItem = {
-                ...commandItem,
-                split: true,
-            }
-        }
-
-        if (iconName) {
-            commandItem = {
-                ...commandItem,
-                iconProps: { iconName }
-            }
-        }
-
-        if (utils.evaluateArray(subMenu)) {
-            commandItem = {
-                ...commandItem,
-                subMenuProps: item.subMenu.map((subItem, subMenuIndex) => ({
-                    key: `item.${item.text}-submenu-${subItem.text}-${subMenuIndex}`,
-                    text: subItem.text,
-                    iconProps: { iconName: subItem.iconName || null },
-                    onClick: item.onClick
-                })),
-            }
-        }
-
-        return commandItem;
-    });
 
     return (
         <CommandBarControlStyled>
             <CommandBar
                 className="command-bar"
-                items={commandItems}
+                items={leftCommands}
+                farItems={farItems}
             />
         </CommandBarControlStyled>
     )
