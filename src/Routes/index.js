@@ -9,6 +9,7 @@ import Degrees from '../Containers/Masters/Degrees';
 import Students from '../Containers/Masters/Students';
 import Teachers from '../Containers/Masters/Teachers';
 import Sections from '../Containers/Masters/Sections';
+import Parents from '../Containers/Masters/Parents';
 
 const handleTestClik = () => {
     debugger
@@ -49,6 +50,13 @@ export const routes = [
         iconName: 'Group',
         path: '/home/students',
         component: Students
+    },
+    {
+        name: 'parents',
+        title: 'parents',
+        iconName: 'Group',
+        path: '/home/parents',
+        component: Parents
     },
     {
         name: 'teachers',
