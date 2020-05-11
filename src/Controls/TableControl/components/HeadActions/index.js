@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { SearchBox, Dropdown } from '@fluentui/react';
 import { utils } from '../../../../utils';
+import { useTranslate } from 'react-translate';
 
 const HeadActionStyled = styled.div`
     display: grid;
@@ -16,10 +17,12 @@ export const HeadActions = ({ columns, onSearch }) => {
         text: '',
     });
 
+    const translate = useTranslate('data');
+
     const options = useMemo(() => {
         const opts = utils.evaluateArray(columns) ? columns.filter(f => f.fieldName).map(column => ({
             key: column.fieldName,
-            text: column.label
+            text: translate(column.label)
         })) : [];
 
         return opts;

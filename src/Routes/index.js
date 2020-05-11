@@ -8,6 +8,7 @@ import Subjects from '../Containers/Masters/Subjects';
 import Degrees from '../Containers/Masters/Degrees';
 import Students from '../Containers/Masters/Students';
 import Teachers from '../Containers/Masters/Teachers';
+import Sections from '../Containers/Masters/Sections';
 
 const handleTestClik = () => {
     debugger
@@ -27,6 +28,13 @@ export const routes = [
         iconName: 'Documentation',
         path: '/home/subjects',
         component: Subjects
+    },
+    {
+        name: 'sections',
+        title: 'sections',
+        iconName: 'UpgradeAnalysis',
+        path: '/home/sections',
+        component: Sections
     },
     {
         name: 'degrees',
