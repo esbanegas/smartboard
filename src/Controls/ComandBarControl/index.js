@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { CommandBar } from '@fluentui/react';
 
 import { materializeLeftCommnads, materializeRigthCommnads } from './setting';
+import { useTranslate } from 'react-translate';
 
 const CommandBarControlStyled = styled.div`
     .command-bar {
@@ -27,10 +28,11 @@ const CommandBarControlStyled = styled.div`
 `;
 
 export const CommandBarControl = ({ items, rightCommands }) => {
+    const translate = useTranslate('data');
 
-    const leftCommands = useMemo(() => materializeLeftCommnads(items), [items]);
+    const leftCommands = useMemo(() => materializeLeftCommnads(items, translate), [items]);
 
-    const farItems = useMemo(() => materializeRigthCommnads(rightCommands), [rightCommands]);
+    const farItems = useMemo(() => materializeRigthCommnads(rightCommands, translate), [rightCommands]);
 
 
     return (

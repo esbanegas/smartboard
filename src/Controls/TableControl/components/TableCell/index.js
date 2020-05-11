@@ -1,5 +1,6 @@
 import React from 'react';
 import { TableCellStyled } from './style';
+import { ActionsCell } from '../Actions';
 
 export const TableCell = ({ indexRow, indexColumn, item, column }) => {
 
@@ -12,7 +13,14 @@ export const TableCell = ({ indexRow, indexColumn, item, column }) => {
             hideOnPhone={column.hideOnPhone}>
             {
                 column.onRenderCell ?
-                    column.onRenderCell(item) : item[column.fieldName]
+                    column.onRenderCell(item)
+                    : (column.actions ?
+                        (
+                            <ActionsCell
+                                item={item}
+                                actions={column.actions} />
+                        )
+                        : item[column.fieldName])
             }
         </TableCellStyled>
     )

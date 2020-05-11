@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslate } from 'react-translate';
 import styled from 'styled-components';
-import { TextField, DocumentCard, DocumentCardTitle } from '@fluentui/react';
-import { PanelControl, CommandBarControl, CardsControl } from '../../Controls';
+import { TextField, DocumentCard, DocumentCardTitle, IconButton } from '@fluentui/react';
+import { CommandBarControl, CardsControl } from '../../Controls';
 import { restClient } from '../../Services/restClient';
 import { useAlert } from 'react-alert'
 import image from './image.jpg';
+import InstituteForm from './components/IntituteForm';
 
 const InstituteStyled = styled.div`
     /* border: 1px solid gray;
@@ -17,11 +18,8 @@ const InstituteStyled = styled.div`
 
 const Institutes = () => {
     const [institutes, setInstitutes] = useState([]);
-    const [institute, setInstitute] = useState({
-        name: '',
-        slogan: '',
-        descrption: '',
-    });
+    const [selectedInstitute, setSelectedInstitute] = useState({});
+    const [isOpen, setIsOpen] = useState(false);
 
     const translate = useTranslate('data');
     const alert = useAlert();
@@ -41,26 +39,51 @@ const Institutes = () => {
         setInstitutes(response.items);
     }
 
-    const handleFieldChange = prop => event => {
-        setInstitute({ ...institute, [prop]: event.target.value });
-    }
-
-    const handleSaveClick = async () => {
-        if (!institute.name) {
-            alert.info('Instituto vacio');
-            return;
-        }
-
-        const response = await restClient.httpPost('institutes', institute);
+    const handleEditClick = item => () => {
+        setSelectedInstitute(item);
+        setIsOpen(true);
     }
 
     const onRenderCard = item => {
         return (
-            <div>
+            <div style={{ position: 'relative' }}>
+                <div style={{ position: 'absolute', right: 1 }}>
+                    <IconButton
+                        menuProps={{
+                            items: [
+                                {
+                                    key: 'edit',
+                                    text: translate('edit'),
+                                    iconProps: { iconName: 'Edit' },
+                                    onClick: handleEditClick(item)
+                                },
+                                {
+                                    key: 'delete',
+                                    text: translate('delete'),
+                                    iconProps: { iconName: 'Delete' },
+                                },
+                            ]
+                        }}
+                        title="Options"
+                        ariaLabel="Options"
+                    // checked={true}
+                    />
+                </div>
                 <img src={image} />
-                {item.name}
+
+                <div style={{ display: 'grid', justifyContent: 'center' }}>
+                    <strong> {item.name} </strong>
+                    <span>{`"${item.slogan}"`}</span>
+                </div>
+
             </div>
         )
+    }
+
+
+    const onDismiss = () => {
+        setIsOpen(false);
+        setSelectedInstitute({});
     }
 
     return (
@@ -69,32 +92,9 @@ const Institutes = () => {
                 {
                     text: 'add',
                     iconName: 'Add',
-                    onClick: handleSaveClick
+                    onClick: () => setIsOpen(true),
                 },
-                {
-                    text: 'edit',
-                    iconName: 'Edit'
-                }]
-            } />
-
-            <TextField label={translate('nameInstitute')} onChange={handleFieldChange('name')} />
-            <TextField label={translate('slogan')} onChange={handleFieldChange('slogan')} />
-            <TextField label={translate('description')} onChange={handleFieldChange('description')} />
-
-            {/* {
-                institutes.map(item => (
-                    <DocumentCard>
-                        <DocumentCardTitle
-                            title={
-                                'Large_file_name_with_underscores_used_to_separate_all_of_the_words_and_there_are_so_many_words_' +
-                                'it_needs_truncating.pptx'
-                            }
-                            shouldTruncate={true}
-                        />
-                    </DocumentCard>
-                ))
-
-            } */}
+            ]} />
 
             <CardsControl
                 items={institutes}
@@ -102,11 +102,12 @@ const Institutes = () => {
                 justifyContentItems="start"
                 widthCard={230} />
 
-
-            <PanelControl isOpen commands={[{
-                text: 'Save',
-                iconName: 'Add'
-            }]} />
+            {isOpen && (
+                <InstituteForm
+                    isOpen={isOpen}
+                    onDismiss={onDismiss}
+                    selectedInstitute={selectedInstitute} />
+            )}
 
         </InstituteStyled>
     )

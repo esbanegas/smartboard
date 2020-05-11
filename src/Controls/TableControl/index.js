@@ -1,4 +1,4 @@
-import React, { useMemo, Suspense } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 
 import PropTypes from 'prop-types';
 import { TableHead } from './components/TableHead';
@@ -14,22 +14,11 @@ import { utils } from '../../utils';
 const textColor = '#ffffff';
 const backgroundColor = '#004578';
 
-const TableControl = ({ columns, data, rowConfig, currentPage, totalPages, basePageLink }) => {
+const TableControl = ({ columns, data, onSearch, rowConfig, currentPage, totalPages, basePageLink }) => {
+    const [filteredData, setFilteredData] = useState(null);
 
-    // if (!utils.evaluateArray(columns)) {
-    //     return null;
-    // }
-
-    // if (!utils.evaluateArray(data)) {
-    //     return null;
-    // }
-
-    const rows = useMemo(() => {
-        if (!utils.evaluateArray(data)) {
-            return null;
-        }
-
-        return data.map((item, indexRow) => (
+    const getRows = items => {
+        return items.map((item, indexRow) => (
             <TableRow
                 indexRow={indexRow}
                 item={item}
@@ -46,11 +35,53 @@ const TableControl = ({ columns, data, rowConfig, currentPage, totalPages, baseP
                 }
             </TableRow>
         ));
-    }, [data])
+    }
+
+    const rows = useMemo(() => {
+        if (!utils.evaluateArray(data)) {
+            return null;
+        }
+
+        return getRows(data);
+    }, [data]);
+
+    const filteredRows = useMemo(() => {
+        if (filteredData === null) {
+            return null;
+        }
+
+        return getRows(filteredData);
+    }, [filteredData]);
+
+    const handleSearch = (prop, value) => {
+        if (!value && onSearch) {
+            onSearch([]);
+            setFilteredData(null);
+            return;
+        }
+
+        if(!value){
+            setFilteredData(null);
+        }
+
+        const filteredResult = data.filter(item => {
+            if (!Number.isInteger(item[prop])) {
+                return item[prop].toUpperCase().includes(value.toUpperCase());
+            }
+
+            return false;
+        });
+
+        setFilteredData(filteredResult);
+
+        if (onSearch) {
+            onSearch(filteredResult);
+        }
+    }
 
     return (
         <TableMain>
-            <HeadActions columns={columns} />
+            <HeadActions columns={columns} onSearch={handleSearch} />
             <TableContainerStyled>
                 <TableStyled>
                     <TableHead
@@ -59,7 +90,9 @@ const TableControl = ({ columns, data, rowConfig, currentPage, totalPages, baseP
                         backgroundColor={backgroundColor} />
 
                     <tbody>
-                        {rows}
+                        {
+                            filteredData === null ? rows : filteredRows
+                        }
                     </tbody>
                 </TableStyled>
             </TableContainerStyled>
@@ -75,7 +108,7 @@ const TableControl = ({ columns, data, rowConfig, currentPage, totalPages, baseP
 TableControl.propTypes = {
     columns: PropTypes.arrayOf(
         PropTypes.shape({
-            fieldName: PropTypes.string.isRequired,
+            fieldName: PropTypes.string,
             label: PropTypes.string,
             align: 'left' || 'center' || 'left',
             width: PropTypes.number,

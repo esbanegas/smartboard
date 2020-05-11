@@ -4,6 +4,10 @@ import TeacherProfile from '../Containers/TeacherProfile';
 import AttendanceControl from '../Containers/AttendanceControl';
 import GradesPerSection from '../Containers/Masters/GradesPerSections';
 import Institutes from '../Containers/Intitute';
+import Subjects from '../Containers/Masters/Subjects';
+import Degrees from '../Containers/Masters/Degrees';
+import Students from '../Containers/Masters/Students';
+import Teachers from '../Containers/Masters/Teachers';
 
 const handleTestClik = () => {
     debugger
@@ -12,10 +16,38 @@ const handleTestClik = () => {
 export const routes = [
     {
         name: 'institutes',
-        title: 'Intitutes',
-        iconName: 'intitute',
+        title: 'institutes',
+        iconName: 'CityNext',
         path: '/home/institutes',
         component: Institutes
+    },
+    {
+        name: 'subjects',
+        title: 'subjects',
+        iconName: 'Documentation',
+        path: '/home/subjects',
+        component: Subjects
+    },
+    {
+        name: 'degrees',
+        title: 'degrees',
+        iconName: 'UpgradeAnalysis',
+        path: '/home/degrees',
+        component: Degrees
+    },
+    {
+        name: 'students',
+        title: 'students',
+        iconName: 'Group',
+        path: '/home/students',
+        component: Students
+    },
+    {
+        name: 'teachers',
+        title: 'teachers',
+        iconName: 'ManagerSelfService',
+        path: '/home/teachers',
+        component: Teachers
     },
     {
         name: 'gradesPerSections',

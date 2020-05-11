@@ -31,7 +31,7 @@ const HeaderStyled = styled.div`
 `;
 
 const Header = ({ title, header }) => {
-  const translate = useTranslate();
+  const translate = useTranslate('data');
 
   return (
     <HeaderStyled

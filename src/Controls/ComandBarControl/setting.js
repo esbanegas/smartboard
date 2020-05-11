@@ -1,13 +1,15 @@
 import { utils } from "../../utils";
+import { useTranslate } from "react-translate";
 
-export const materializeLeftCommnads = items => {
+export const materializeLeftCommnads = (items, translate) => {
+    
     if (items) {
         return items.map((item, index) => {
             const { iconName, subMenu, split } = item;
 
             let commandItem = {
                 key: `${item.text}-${index}`,
-                text: item.text,
+                text: translate(item.text),
                 ariaLabel: item.text,
                 disabled: item.disabled || null,
                 onClick: item.onClick
@@ -32,7 +34,7 @@ export const materializeLeftCommnads = items => {
                     ...commandItem,
                     subMenuProps: item.subMenu.map((subItem, subMenuIndex) => ({
                         key: `item.${item.text}-submenu-${subItem.text}-${subMenuIndex}`,
-                        text: subItem.text,
+                        text: translate(item.text),
                         iconProps: { iconName: subItem.iconName || null },
                         onClick: item.onClick
                     })),
@@ -46,7 +48,7 @@ export const materializeLeftCommnads = items => {
     return [];
 }
 
-export const materializeRigthCommnads = items => {
+export const materializeRigthCommnads = (items, translate) => {
     if (items) {
         return items.map(item => {
             let subMenu = null;
@@ -58,7 +60,7 @@ export const materializeRigthCommnads = items => {
                     if (utils.evaluateArray(subItem.subMenu)) {
                         subMenuItems = subItem.subMenu.map(subItem => ({
                             key: subItem.text,
-                            name: subItem.text,
+                            name: translate(item.text),
                             iconProps: {
                                 iconName: subItem.iconName,
                             },
@@ -70,7 +72,7 @@ export const materializeRigthCommnads = items => {
 
                     return {
                         key: subItem.text,
-                        name: subItem.text,
+                        name: translate(item.text),
                         iconProps: {
                             iconName: subItem.iconName,
                         },
@@ -85,7 +87,7 @@ export const materializeRigthCommnads = items => {
             return {
                 key: item.text,
                 disabled: item.disabled,
-                name: item.text,
+                name: translate(item.text),
                 iconProps: {
                     iconName: item.iconName,
                 },

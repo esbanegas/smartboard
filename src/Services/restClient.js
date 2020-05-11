@@ -119,7 +119,7 @@ export class restClient {
 
     static httpDelete = (url, request) => {
 
-        utils.showWait();
+        // utils.showWait();
 
         return fetch(`${urlBase}/${url}`, {
             method: 'DELETE',
@@ -128,7 +128,7 @@ export class restClient {
         })
             .then(response => response.json())
             .then(response => {
-                utils.hiddenWait();
+                // utils.hiddenWait();
 
                 return response;
             })

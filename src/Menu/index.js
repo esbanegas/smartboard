@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { routes } from '../Routes';
 import { Icon, Link } from '@fluentui/react';
+import { useTranslate } from 'react-translate';
 
 const MenuStyled = styled.div`
     
@@ -42,6 +43,7 @@ const MenuItemStyled = styled.div`
 `;
 
 const Menu = ({ isCollapsed}) => {
+    const translate = useTranslate('data');
 
     return (
         <MenuStyled isCollapsed={isCollapsed} >
@@ -52,7 +54,7 @@ const Menu = ({ isCollapsed}) => {
                         isSelected={route.name}>
                         <Link href={route.path}>
                             <Icon iconName={route.iconName} />
-                            <span>{route.title}</span>
+                            <span>{translate(route.title)}</span>
                         </Link>
                     </MenuItemStyled>
                 )

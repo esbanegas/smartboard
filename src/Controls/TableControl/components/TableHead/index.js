@@ -1,7 +1,10 @@
 import React, { useMemo } from 'react';
 import { TableHeadStyled } from './style';
+import { useTranslate } from 'react-translate';
 
 export const TableHead = ({ columns, textColor, backgroundColor }) => {
+
+    const translate = useTranslate('data');
 
     const headers = useMemo(() => {
         return columns.map(column => (
@@ -16,7 +19,7 @@ export const TableHead = ({ columns, textColor, backgroundColor }) => {
                 hideOnPhone={column.hideOnPhone}
                 css={column.cssHeader}>
                 {
-                    column.onRenderHeader ? column.onRenderHeader() : column.label
+                    column.onRenderHeader ? column.onRenderHeader() : column.label ? translate(column.label) : null
                 }
             </TableHeadStyled>))
     }, [columns]);

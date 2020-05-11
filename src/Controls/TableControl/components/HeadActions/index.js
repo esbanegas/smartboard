@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import styled from 'styled-components';
 import { SearchBox, Dropdown } from '@fluentui/react';
 import { utils } from '../../../../utils';
@@ -16,18 +16,33 @@ export const HeadActions = ({ columns, onSearch }) => {
         text: '',
     });
 
+    const options = useMemo(() => {
+        const opts = utils.evaluateArray(columns) ? columns.filter(f => f.fieldName).map(column => ({
+            key: column.fieldName,
+            text: column.label
+        })) : [];
+
+        return opts;
+    }, [columns]);
+
     useEffect(() => {
-        if (utils.evaluateArray(columns)) {
+        if (utils.evaluateArray(options) && !selectedFilter.key) {
             setSelectedFilter({
-                key: columns[0].fieldName,
-                text: columns[0].label,
+                key: options[0].key,
+                text: options[0].text
             });
         }
-    }, [columns]);
+    }, [options]);
 
     const handleOnSearch = value => {
         if (onSearch) {
-            onSearch(value);
+            onSearch(selectedFilter.key, value);
+        }
+    }
+
+    const handleClearClick = () => {
+        if (onSearch) {
+            onSearch('', '');
         }
     }
 
@@ -41,15 +56,12 @@ export const HeadActions = ({ columns, onSearch }) => {
                 iconProps={{ iconName: 'Filter' }}
                 placeholder={`Search ${selectedFilter.text}`}
                 onSearch={handleOnSearch}
-                onClear={handleOnSearch}
+                onClear={handleClearClick}
             />
 
             <Dropdown
                 selectedKey={selectedFilter.key}
-                options={utils.evaluateArray(columns) ? columns.map(column => ({
-                    key: column.fieldName,
-                    text: column.label
-                })) : []}
+                options={options}
                 onChange={handleSelectFilterChange}
             />
 
