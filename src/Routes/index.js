@@ -33,7 +33,7 @@ export const routes = [
     {
         name: 'sections',
         title: 'sections',
-        iconName: 'UpgradeAnalysis',
+        iconName: 'Section',
         path: '/home/sections',
         component: Sections
     },
@@ -54,7 +54,7 @@ export const routes = [
     {
         name: 'parents',
         title: 'parents',
-        iconName: 'Group',
+        iconName: 'People',
         path: '/home/parents',
         component: Parents
     },

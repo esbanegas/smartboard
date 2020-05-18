@@ -12,7 +12,7 @@ import { utils } from '../../utils';
 
 // const headerColor = 'black';
 const textColor = '#ffffff';
-const backgroundColor = '#004578';
+const backgroundColor = '#0078d4';
 
 const TableControl = ({ columns, data, onSearch, rowConfig, currentPage, totalPages, basePageLink }) => {
     const [filteredData, setFilteredData] = useState(null);

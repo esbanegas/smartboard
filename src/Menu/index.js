@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { routes } from '../Routes';
-import { Icon, Link } from '@fluentui/react';
+import { Icon, Link, TooltipHost, DirectionalHint } from '@fluentui/react';
 import { useTranslate } from 'react-translate';
 
 const MenuStyled = styled.div`
@@ -21,15 +21,16 @@ const MenuItemStyled = styled.div`
         align-items: center;
         justify-content: ${prop => prop.isCollapsed ? 'center' : 'start'};
 
-         i {
-            font-size: ${prop => prop.isCollapsed ? '28px' : '22px'};
-            color: #a19f9d;
-        }
-
         span {
             display: ${prop => prop.isCollapsed ? 'none' : 'block'};
             padding-left: 10px;
             color: #605e5c;
+            font-size: 14px;
+        }
+
+        :hover {
+          text-decoration: none;
+          text-decoration: none;
         }
     }
 
@@ -42,18 +43,26 @@ const MenuItemStyled = styled.div`
     }
 `;
 
-const Menu = ({ isCollapsed}) => {
+const Menu = ({ isCollapsed }) => {
     const translate = useTranslate('data');
 
     return (
-        <MenuStyled isCollapsed={isCollapsed} >
+        <MenuStyled>
             {
                 routes.map(route =>
                     <MenuItemStyled
                         key={route.name}
-                        isSelected={route.name}>
+                        isSelected={route.name}
+                        isCollapsed={isCollapsed}>
                         <Link href={route.path}>
-                            <Icon iconName={route.iconName} />
+                            <TooltipHost
+                                content={translate(route.title)}
+                                calloutProps={{ directionalHint: DirectionalHint.rightCenter}}>
+                                <Icon style={{
+                                    fontSize: isCollapsed ? 28 : 22,
+                                }}
+                                    iconName={route.iconName} />
+                            </TooltipHost>
                             <span>{translate(route.title)}</span>
                         </Link>
                     </MenuItemStyled>

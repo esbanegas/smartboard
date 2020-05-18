@@ -5,8 +5,8 @@ export const TableHeadStyled = styled.th`
     position: sticky;
     top: 0;
     color: ${props => props.textColor};
-    background-color: #004578;
-    font-size: 18px;
+    background-color: #0078d4;
+    font-size: 14px;
     font-weight: 700;
     text-align: ${props => props.align ? props.align : 'left'};
     width: ${props => props.width && `${props.width}px`};

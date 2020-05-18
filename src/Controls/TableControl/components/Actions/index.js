@@ -37,11 +37,11 @@ export const ActionsCell = ({ actions, item }) => {
 
             case 'edit':
                 return (
-                    <ActionItemStyled size={action.size || 10} marginLeft={action.marginLeft || 5}>
+                    <ActionItemStyled size={action.size || 5} marginLeft={action.marginLeft || 5}>
                         <CustomButton
                             iconName={action.iconName || 'Edit'}
                             onClick={handleActionClick(action)}
-                            size={action.size || 10}
+                            size={action.size || 5}
                             colorHover={action.colorHover || '#ffffff'} />
                     </ActionItemStyled>
                 )
@@ -52,7 +52,7 @@ export const ActionsCell = ({ actions, item }) => {
                         <CustomButton
                             iconName={action.iconName || 'Delete'}
                             onClick={handleActionClick(action)}
-                            size={action.size || 10}
+                            size={action.size || 5}
                             colorHover={action.colorHover || 'red'} />
                     </ActionItemStyled>
                 )
