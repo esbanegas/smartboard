@@ -1,4 +1,5 @@
 {
+  "homepage":"https://esbanegas.github.io/smartboard" ,
   "name": "smart-board",
   "version": "0.1.0",
   "private": true,
@@ -7,12 +8,15 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "babel-polyfill": "^6.26.0",
+    "draft-js": "^0.11.5",
     "lodash": "^4.17.15",
     "polished": "^3.5.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-alert": "^7.0.0",
     "react-dom": "^16.13.1",
+    "react-pdf": "^4.1.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
@@ -25,7 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "eslint-check": "eslint --print-config src/App/index.js | eslint-config-prettier-check"
+    "eslint-check": "eslint --print-config src/App/index.js | eslint-config-prettier-check",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -55,6 +61,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.0.0",
+    "gh-pages": "^2.2.0",
     "json-loader": "^0.5.7",
     "prettier": "^2.0.5"
   }

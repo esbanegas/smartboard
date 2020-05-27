@@ -5,6 +5,9 @@ import CardsControl from './Cards';
 import PanelControl from './Panel';
 import CustomButton from './CustomButtom';
 import ReadExcelFile from './ReadExcelFile';
+import TextControl from './Text';
+import EditorTextControl from './EditorText';
+import ReaderPDFControl from './ReaderPDF';
 
 export {
     CommandBarControl,
@@ -13,5 +16,8 @@ export {
     CardsControl,
     PanelControl,
     CustomButton,
-    ReadExcelFile
+    ReadExcelFile,
+    TextControl,
+    EditorTextControl,
+    ReaderPDFControl
 }

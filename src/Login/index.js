@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { DefaultButton, TextField } from '@fluentui/react';
 import Institutes from '../Containers/Intitute';
 import { useTranslate } from 'react-translate';
+import { restClient } from '../Services/restClient';
 
 const LoginStyled = styled.div`
     display: flex;
@@ -31,11 +32,28 @@ const Login = ({ history }) => {
 
     const translate = useTranslate('data');
 
+    const fetchIntitute = async () => {
+        const response = await restClient.httpGet('institutes', {
+            queryInfo: {
+                paramValues: [1]
+            },
+        });
+
+        localStorage.setItem('institute', JSON.stringify(response.items[0]));
+    }
+
+    useEffect(() => {
+        fetchIntitute();
+    }, []);
+
     const handleUserChange = prop => event => {
         setUser({ ...user, [prop]: event.target.value });
     }
 
     const handleEnterLoginClick = () => {
+
+
+
         history.push('/home')
     }
 

@@ -9,6 +9,7 @@ import HeaderApp from './HeaderApp';
 // import Menu from '../Menu';
 
 import { routes } from '../Routes';
+import { Dashboard } from '../Dashboard';
 
 const Menu = React.lazy(() => import('../Menu'));
 
@@ -84,7 +85,7 @@ const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage 
         )
     }, [routes]);
 
-    const MenuMerorized = useMemo(() => <Menu isCollapsed={isCollapsed} />, [routes, isCollapsed]);
+    const MenuMemorized = useMemo(() => <Menu isCollapsed={isCollapsed} />, [routes, isCollapsed]);
 
     const handleMenuClick = () => {
         setIsCollapsed(!isCollapsed);
@@ -105,13 +106,13 @@ const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage 
         ],
     }
 
-    return <ContainerAppStyled isCollapsed={isCollapsed}>
-        {/* <BackgroundMain top="70px" /> */}
+    return (
+        <ContainerAppStyled isCollapsed={isCollapsed}>
 
-        <HeaderApp selectedLanguage={selectedLanguage}
-            setSelectedLanguge={setSelectedLanguge} />
+            <HeaderApp selectedLanguage={selectedLanguage}
+                setSelectedLanguge={setSelectedLanguge} />
 
-        <div className="menu">
+            {/* <div className="menu">
             <IconButton
                 title="Menu"
                 iconProps={{ iconName: 'CollapseMenu' }}
@@ -126,21 +127,20 @@ const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage 
                 <Shimmer styles={getShimerStyle} />
                 <Shimmer styles={getShimerStyle} />
             </div>}>
-                {MenuMerorized}
+                {MenuMemorized}
             </Suspense>
+        </div> */}
 
-            {/* <Dashboard /> */}
-        </div>
-
-        <div className="work-area">
-            <Router>
-                <Switch>
-                    {routeComponents}
-                    {/* <Route exact path="/home" component={Dashboard} /> */}
-                </Switch>
-            </Router>
-        </div>
-    </ContainerAppStyled>
+            <div className="work-area">
+                <Router>
+                    <Switch>
+                        {routeComponents}
+                        <Route path="/home" component={Dashboard} />
+                        {/* <Route exact path="/home" component={Dashboard} /> */}
+                    </Switch>
+                </Router>
+            </div>
+        </ContainerAppStyled>)
 }
 
 

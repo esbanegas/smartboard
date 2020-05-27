@@ -47,13 +47,13 @@ PanelControl.propTypes = {
   onDismiss: PropTypes.func,
   commands: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
       iconName: PropTypes.string.isRequired,
       onClick: PropTypes.func.isRequired,
       onRender: PropTypes.func,
       subMenuProps: PropTypes.arrayOf(
         PropTypes.shape({
-          name: PropTypes.string,
+          text: PropTypes.string,
           iconName: PropTypes.string,
           onClick: PropTypes.func,
           onRender: PropTypes.func,

@@ -9,6 +9,7 @@ import en from '../Translate/en.json';
 
 import Store from '../Store';
 import Login from '../Login';
+import { DashboardHome } from '../Dashboard/DashboardHome';
 
 const AppStyled = styled.div`
     position: fixed;
@@ -30,7 +31,7 @@ const App = () => {
 
     return (
         <TranslatorProvider translations={translations}>
-            <AppStyled >
+            <AppStyled>
                 <Router>
                     <Switch>
                         <Route path="/home" render={props => <Store>
@@ -42,6 +43,7 @@ const App = () => {
                     </Switch>
                 </Router>
 
+                <DashboardHome />
                 {/* <WaitControl /> */}
             </AppStyled>
         </TranslatorProvider>

@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Callout, DirectionalHint, Dropdown } from '@fluentui/react';
+import { restClient } from '../Services/restClient';
 
 const HeaderStyled = styled.div`
     position: fixed;
@@ -27,6 +28,12 @@ const HeaderStyled = styled.div`
 
     .head-left {
         h2 {
+            color: #ffffff;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        span {
             color: #ffffff;
         }
     }
@@ -73,6 +80,7 @@ const UserStyled = styled.div`
 
 const HeaderApp = ({ selectedLanguage, setSelectedLanguge }) => {
     const [isCalloutVisible, setIsCalloutVisible] = useState(false);
+    const institute = JSON.parse(localStorage.getItem('institute')) || {};
     // const [selectedLanguage, setSelectedLanguge] = useState('es');
     const content = useRef();
 
@@ -85,7 +93,8 @@ const HeaderApp = ({ selectedLanguage, setSelectedLanguge }) => {
     return (
         <HeaderStyled>
             <div className="head-left align-content-center">
-                <h2>Smartboard</h2>
+                <h2>{institute.name}</h2>
+                <span>{`"${institute.slogan}"`}</span>
             </div>
 
             <div className="head-center align-content-center">

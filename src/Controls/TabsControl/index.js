@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pivot, PivotItem, Label } from '@fluentui/react';
 import styled from 'styled-components';
 
@@ -29,7 +30,10 @@ const TabsControl = ({ tabs }) => {
         <TabsStyled>
             <Pivot className="pivot">
                 {tabs.map(tab =>
-                    <PivotItem className="tab-item" itemIcon={tab.itemIcon} headerText={tab.label}>
+                    <PivotItem
+                        className="tab-item"
+                        itemIcon={tab.iconName}
+                        headerText={tab.label}>
                         {/* <TabContainerStyled> */}
                         {tab.component}
                         {/* </TabContainerStyled> */}
@@ -38,5 +42,16 @@ const TabsControl = ({ tabs }) => {
         </TabsStyled>
     )
 }
+
+
+TabsControl.propTypes = {
+    tabs: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.string,
+            component: PropTypes.element,
+            iconName: PropTypes.string,
+        }),
+    ),
+};
 
 export default TabsControl;
