@@ -43,7 +43,7 @@ const Login = ({ history }) => {
     }
 
     useEffect(() => {
-        fetchIntitute();
+        // fetchIntitute();
     }, []);
 
     const handleUserChange = prop => event => {
