@@ -2,7 +2,7 @@ import React, { useState, useMemo, Suspense } from 'react';
 
 import { IconButton, Shimmer } from '@fluentui/react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
 
 import HeaderApp from './Header';
@@ -23,7 +23,7 @@ const ContainerAppStyled = styled.div`
     /* background: #eeeeee; */
 
     display: grid;
-    grid-template-columns: ${prop => prop.isCollapsed ? '50px' : '300px'} auto;
+    /* grid-template-columns: ${prop => prop.isCollapsed ? '50px' : '300px'} auto; */
 
     background: red;
     position: fixed;
@@ -106,10 +106,12 @@ const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage 
         ],
     }
 
+    const screenName = history ? history.location.pathname.split('/')[2] : '';
+
     return (
         <ContainerAppStyled isCollapsed={isCollapsed}>
 
-            <HeaderApp selectedLanguage={selectedLanguage}
+            <HeaderApp screenName={screenName} selectedLanguage={selectedLanguage}
                 setSelectedLanguge={setSelectedLanguge} />
 
             {/* <div className="menu">
@@ -132,13 +134,13 @@ const ContainerApp = ({ history, dispatch, setSelectedLanguge, selectedLanguage 
         </div> */}
 
             <div className="work-area">
-                <Router>
+                <HashRouter>
                     <Switch>
                         {routeComponents}
                         <Route path="/home" component={Dashboard} />
                         {/* <Route exact path="/home" component={Dashboard} /> */}
                     </Switch>
-                </Router>
+                </HashRouter>
             </div>
         </ContainerAppStyled>)
 }
