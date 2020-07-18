@@ -14,7 +14,7 @@ const Header = styled.div`
     padding-left: 5px;
 
     display: grid;
-    grid-template-columns: 300px 1fr 300px;
+    grid-template-columns: auto 1fr 300px;
     grid-template-rows: 60px;
     align-items: center;
 
@@ -29,6 +29,12 @@ const Header = styled.div`
     }
 
     .head-left {
+        display: flex;
+
+        div {
+            padding-right: 5px;    
+        }
+
         h2 {
             color: #ffffff;
             padding: 0px;

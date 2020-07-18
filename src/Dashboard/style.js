@@ -10,6 +10,7 @@ const Main = styled.div`
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #ffffff;
+    overflow-x: auto;
 
     position: fixed;
     top: 60px;

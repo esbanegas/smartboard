@@ -1,7 +1,8 @@
 import React from 'react';
 import { DashboardStyled } from './style';
 import { routes } from '../Routes';
-import { Link, Icon } from '@fluentui/react';
+import { Icon } from '@fluentui/react';
+import { Link } from "react-router-dom";
 import { useTranslate } from 'react-translate';
 
 export const Dashboard = () => {
@@ -13,7 +14,7 @@ export const Dashboard = () => {
             {
                 routes.map(route => (
                     <DashboardStyled.Item className="fadein-animation" color={route.color}>
-                        <Link href={route.path}>
+                        <Link to={route.path}>
                             <Icon iconName={route.iconName} />
                             <span>{translate(route.title)}</span>
                         </Link>

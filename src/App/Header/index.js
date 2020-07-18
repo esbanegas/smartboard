@@ -4,11 +4,14 @@ import { Callout, DirectionalHint, Dropdown } from '@fluentui/react';
 import { style } from './style';
 import { screenSmallerThan } from '../../Style/utils';
 import { Responsive } from '../../Style/responsive';
+import { useTranslate } from 'react-translate';
 
-const HeaderApp = ({ selectedLanguage, setSelectedLanguge }) => {
+const HeaderApp = ({screenName, selectedLanguage, setSelectedLanguge }) => {
     const [isCalloutVisible, setIsCalloutVisible] = useState(false);
     // const institute = JSON.parse(localStorage.getItem('institute')) || {};
     // const [selectedLanguage, setSelectedLanguge] = useState('es');
+
+    const translate = useTranslate('data');
 
     const institute = {
         name: 'CB 15 De Septiembre',
@@ -26,15 +29,25 @@ const HeaderApp = ({ selectedLanguage, setSelectedLanguge }) => {
     return (
         <style.Header>
             <div className="head-left align-content-center">
-                <h2>{institute.name}</h2>
-                <span>{`"${institute.slogan}"`}</span>
+                <div>
+                    <h2>{institute.name}</h2>
+                    <span>{`"${institute.slogan}"`}</span>
+                </div>
+
+                <h2>{` | ${translate(screenName)}`}</h2>
             </div>
 
-             <Responsive.Tablet>
+            <Responsive.Tablet>
                 <div className="head-center align-content-center">
-                    hola
+
                 </div>
-             </Responsive.Tablet>
+            </Responsive.Tablet>
+
+            <Responsive.Desktop>
+                <div className="head-center align-content-center">
+
+                </div>
+            </Responsive.Desktop>
 
             <div className="head-right align-content-center">
                 <style.User ref={content} onClick={() => setIsCalloutVisible(true)}>

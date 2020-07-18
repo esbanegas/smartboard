@@ -4,7 +4,7 @@ export const TableMain = styled.div`
     display: grid;
     grid-template-rows: 40px calc(100% - 40px);
     height: 100%;
-    border: 0.05px solid #edebe9;
+    /* border: 0.05px solid #edebe9; */
     border-collapse: collapse;
 `;
 

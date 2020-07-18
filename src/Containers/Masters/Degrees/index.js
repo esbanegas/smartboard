@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { CommandBarControl, TableControl } from '../../../Controls'
+import { CommandBarControl, TableControl, CustomButton, ListControl, DialogControl } from '../../../Controls';
 import { columnsGradesTable } from './setting';
-import { IconButton } from '@fluentui/react';
+import { IconButton} from '@fluentui/react';
 
 import { restClient } from '../../../Services/restClient';
 import { utils } from '../../../utils';
@@ -19,6 +19,7 @@ const Grades = () => {
     const [filteredGrades, setFilteredGrades] = useState([]);
     const [selectedGrade, setSelectedGrade] = useState({});
     const [isOpen, setIsOpen] = useState(false);
+    const [hideDialog, setHideDialog] = useState(true);
 
     const translate = useTranslate('data');
     const alert = useAlert();
@@ -67,7 +68,21 @@ const Grades = () => {
     }
 
     const handleSearch = data => {
-        setFilteredGrades(data.length > 0 ? data : null );
+        setFilteredGrades(data.length > 0 ? data : null);
+    }
+
+    const handleAddClassToGradeId = row => () => {
+        setHideDialog(false);
+    }
+
+    const addSubjectRender = row => {
+
+        return (
+            <CustomButton
+                size={7}
+                iconName="Add"
+                onClick={handleAddClassToGradeId(row)} />
+        )
     }
 
     return (
@@ -81,10 +96,38 @@ const Grades = () => {
             ]} />
 
 
-            <TableControl
-                data={degrees}
-                columns={columnsGradesTable(handleEditClick, handleDeleteClick)}
-                onSearch={handleSearch} />
+            <div>
+                <TableControl
+                    data={degrees}
+                    columns={columnsGradesTable(handleEditClick, handleDeleteClick, addSubjectRender)}
+                    onSearch={handleSearch} />
+
+                {/* <TableControl
+                    data={degrees}
+                    columns={columnsGradesTable(handleEditClick, handleDeleteClick, addSubjectRender)}
+                    onSearch={handleSearch} /> */}
+
+                {/* <ListControl
+                    fieldKey="name"
+                    items={[
+                        {
+                            name: 'Erlin'
+                        },
+                        {
+                            name: 'Samir'
+                        },
+                        {
+                            name: 'Banegas'
+                        },
+                        {
+                            name: 'Hernández'
+                        },
+                        {
+                            name: 'Violet'
+                        }
+                    ]}
+                    onRenderItem={item => <strong>{item.name}</strong>} /> */}
+            </div>
 
             {isOpen && (
                 <GradeForm
@@ -93,7 +136,15 @@ const Grades = () => {
                     onDissmis={onDissmis}
                 />
             )}
-        </GradesStyled>
+
+            <DialogControl
+                hidden={hideDialog}
+                onDismiss={() => setHideDialog(true)}
+                title="Erlin"
+            >
+                <strong>Erlin Samir</strong>
+            </DialogControl>
+        </GradesStyled >
     )
 }
 

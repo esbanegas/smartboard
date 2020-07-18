@@ -8,6 +8,8 @@ import ReadExcelFile from './ReadExcelFile';
 import TextControl from './Text';
 import EditorTextControl from './EditorText';
 import ReaderPDFControl from './ReaderPDF';
+import ListControl from './List';
+import DialogControl from './Dialog';
 
 export {
     CommandBarControl,
@@ -19,5 +21,7 @@ export {
     ReadExcelFile,
     TextControl,
     EditorTextControl,
-    ReaderPDFControl
+    ReaderPDFControl,
+    ListControl,
+    DialogControl
 }

@@ -51,5 +51,6 @@
     "saveAndSend": "Save And Send",
     "addTask": "Add Task",
     "editTask": "Edit Task",
-    "classesCalendar": "Classes Calendar"
+    "classesCalendar": "Classes Calendar",
+    "parents": "Parents"
 }

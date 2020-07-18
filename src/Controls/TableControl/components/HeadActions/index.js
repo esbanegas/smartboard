@@ -9,6 +9,7 @@ const HeadActionStyled = styled.div`
     grid-template-columns: 300px 160px;
     grid-column-gap: 5px;
     height: 40px;
+    overflow-y: auto;
 `;
 
 export const HeadActions = ({ columns, onSearch }) => {

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { routes } from '../Routes';
-import { Icon, Link } from '@fluentui/react';
+import { HashRouter, Link } from "react-router-dom";
+import { Icon } from '@fluentui/react';
 import { useTranslate } from 'react-translate';
+
 import { AnimationFadeInStyled } from '../Style/fadein';
+
 import { DashboardStyled } from './style';
 
 export const DashboardHome = () => {
@@ -34,14 +37,16 @@ export const DashboardHome = () => {
 
     return (
         <DashboardStyled.Home isVisible={isVisible}>
-            {isVisible && routes.map(route => (
-                <DashboardStyled.Item className="fadein-animation" color={route.color}>
-                    <Link href={route.path}>
-                        <Icon iconName={route.iconName} />
-                        <span>{translate(route.title)}</span>
-                    </Link>
-                </DashboardStyled.Item>
-            ))}
+            <HashRouter>
+                {isVisible && routes.map(route => (
+                    <DashboardStyled.Item className="fadein-animation" color={route.color}>
+                        <Link to={route.path}>
+                            <Icon iconName={route.iconName} />
+                            <span>{translate(route.title)}</span>
+                        </Link>
+                    </DashboardStyled.Item>
+                ))}
+            </HashRouter>
         </DashboardStyled.Home>
     )
 }

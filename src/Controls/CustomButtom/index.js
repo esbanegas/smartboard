@@ -21,6 +21,7 @@ const CustomButton = ({
   buttonId,
   toolTipContent,
   colorText,
+  height,
 }) => {
 
   const handleOnButtomCustomClick = () => {
@@ -33,7 +34,7 @@ const CustomButton = ({
 
   const buttom = () => (
     <IconButton
-    style={{background:'transparent'}}
+      style={{background:'transparent'}}
       className="custom-buttom"
       data-testid={buttonId}
       iconProps={{ iconName }}
@@ -48,6 +49,7 @@ const CustomButton = ({
         display: 'grid',
         gridTemplateRows: label ? `${size}px 10px` : `${size}px`,
         justifyItems: 'center',
+        height: height || 40,
       }}
     >
       <StyledCustomButton
@@ -93,6 +95,8 @@ CustomButton.propTypes = {
   disabled: PropTypes.bool,
   colorHover: PropTypes.string,
   colorText: PropTypes.string,
+
+  height: PropTypes.number,
 
   toolTipContent: PropTypes.string,
 };

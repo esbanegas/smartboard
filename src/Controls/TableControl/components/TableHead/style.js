@@ -11,7 +11,7 @@ export const TableHeadStyled = styled.th`
     text-align: ${props => props.align ? props.align : 'left'};
     width: ${props => props.width && `${props.width}px`};
     height: 30px;
-    border: 1px solid #f3f2f1;
+    /* border: 1px solid #f3f2f1; */
     padding-left: 5px;
     padding-right: 5px;
     cursor: pointer;

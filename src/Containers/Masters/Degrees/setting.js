@@ -1,4 +1,4 @@
-export const columnsGradesTable = (handleEditClick, handleDeleteClick) => [
+export const columnsGradesTable = (handleEditClick, handleDeleteClick, addSubjectRender) => [
     {
         // onRenderCell: onRenderAction,
         actions: [{
@@ -22,5 +22,8 @@ export const columnsGradesTable = (handleEditClick, handleDeleteClick) => [
     {
         label: 'status',
         fieldName: 'status'
+    },
+    {
+        onRenderCell: addSubjectRender,
     }
 ]

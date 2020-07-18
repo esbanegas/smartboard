@@ -51,5 +51,6 @@
     "saveAndSend": "Guardar y Enviar",
     "addTask": "Agregar Tarea",
     "editTask": "Editar Tarea",
-    "classesCalendar": "Calendario Clases"
+    "classesCalendar": "Calendario Clases",
+    "parents": "Padres"
 }

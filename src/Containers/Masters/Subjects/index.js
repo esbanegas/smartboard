@@ -15,7 +15,14 @@ const SubjectsStyled = styled.div`
 `;
 
 const Subjects = () => {
-    const [subjects, setSubjects] = useState([]);
+    const [subjects, setSubjects] = useState([
+        {
+            subjectId: 1,
+            title: 'Matematicas',
+            description: 'Un mundo de numeros',
+            status: 'Active'
+        }
+    ]);
     const [filteredSubjects, setFilteredSubjects] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState({});
     const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +31,7 @@ const Subjects = () => {
     const alert = useAlert();
 
     useEffect(() => {
-        fetchSubjects();
+        // fetchSubjects();
     }, []);
 
     const fetchSubjects = async () => {
@@ -67,7 +74,7 @@ const Subjects = () => {
     }
 
     const handleSearch = data => {
-        setFilteredSubjects(data.length > 0 ? data : null );
+        setFilteredSubjects(data.length > 0 ? data : null);
     }
 
     return (

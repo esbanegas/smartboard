@@ -14,18 +14,21 @@ export const columnsSubjectTable = (handleEditClick, handleDeleteClick) => [
     {
         label: 'subjectId',
         fieldName: 'subjectId',
-        width: 110
+        width: 170
     },
     {
         label: 'title',
-        fieldName: 'title'
+        fieldName: 'title',
+        width: 170
     },
     {
         label: 'description',
-        fieldName: 'description'
+        fieldName: 'description',
+        width: 300
     },
     {
         label: 'status',
-        fieldName: 'status'
+        fieldName: 'status',
+        width: 170
     }
 ]

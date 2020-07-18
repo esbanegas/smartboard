@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { TranslatorProvider } from 'react-translate';
+
 import styled from 'styled-components';
 import ContainerApp from './ContainerApp';
 
@@ -10,6 +12,9 @@ import en from '../Translate/en.json';
 import Store from '../Store';
 import Login from '../Login';
 import { DashboardHome } from '../Dashboard/DashboardHome';
+import { Responsive } from '../Style/responsive';
+import { DashboardMobile } from '../Dashboard/DashboardMobile';
+
 
 const AppStyled = styled.div`
     position: fixed;
@@ -32,7 +37,7 @@ const App = () => {
     return (
         <TranslatorProvider translations={translations}>
             <AppStyled>
-                <Router>
+                <HashRouter>
                     <Switch>
                         <Route path="/home" render={props => <Store>
                             <ContainerApp
@@ -41,9 +46,19 @@ const App = () => {
                                 {...props} /></Store>} />
                         <Route path="/" render={props => <Store><Login {...props} /></Store>} />
                     </Switch>
-                </Router>
+                </HashRouter>
 
-                <DashboardHome />
+                <Responsive.Tablet>
+                    <DashboardMobile />
+                </Responsive.Tablet>
+
+                <Responsive.Mobile>
+                    <DashboardMobile />
+                </Responsive.Mobile>
+
+                <Responsive.Desktop>
+                    <DashboardHome />
+                </Responsive.Desktop>
                 {/* <WaitControl /> */}
             </AppStyled>
         </TranslatorProvider>

@@ -7,6 +7,7 @@ export const TableCell = ({ indexRow, indexColumn, item, column }) => {
     return (
         <TableCellStyled
             key={`row[${indexRow}]-column[${indexColumn}]`}
+            width={column.width}
             css={column.css}
             hideOnDesktop={column.hideOnDesktop}
             hideOnTablet={column.hideOnTablet}

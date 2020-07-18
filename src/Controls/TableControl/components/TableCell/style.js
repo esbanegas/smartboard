@@ -3,11 +3,13 @@ import { screenSmallerThan } from "../../../../Style/utils";
 
 export const TableCellStyled = styled.td`
     font-size: 14px;
-    border: 1px solid #f3f2f1;
+    /* border: 1px solid #f3f2f1; */
     padding-left: 5px;
     padding-right: 5px;
+    width: ${props => props.width && `${props.width}px`};
+    height: 40px;
 
-    ${screenSmallerThan.desktop`
+    /* ${screenSmallerThan.desktop`
       display: ${props => props.hideOnDesktop && "none"};
     `};
 
@@ -17,7 +19,7 @@ export const TableCellStyled = styled.td`
 
     ${screenSmallerThan.phone`
         display: ${props => props.hideOnPhone && "none"};
-    `};
+    `}; */
 
     ${props => props.css && css(...props.css)}
 `;
