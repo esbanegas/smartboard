@@ -1,146 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { CommandBarControl, TableControl, ReadExcelFile } from '../../../Controls'
-import { columnsStudentsTable } from './setting';
-import { IconButton } from '@fluentui/react';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import {
+  CommandBarControl,
+  TableControl,
+  ReadExcelFile,
+} from "../../../Controls";
+import { columnsStudentsTable } from "./setting";
+import { IconButton } from "@fluentui/react";
 
-import { restClient } from '../../../Services/restClient';
-import { utils } from '../../../utils';
-import { StudentForm } from './components/StudentForm';
-import { useTranslate } from 'react-translate';
-import { useAlert } from 'react-alert';
+import { restClient } from "../../../Services/restClient";
+import { utils } from "../../../utils";
+import { StudentForm } from "./components/StudentForm";
+import { useTranslate } from "react-translate";
+import { useAlert } from "react-alert";
 
-const StudentsStyled = styled.div`
-
-`;
+const StudentsStyled = styled.div``;
 
 const Students = () => {
-    const [students, setStudents] = useState([]);
-    const [filteredStudents, setFilteredStudents] = useState([]);
-    const [selectedStudent, setSelectedStudent] = useState({});
-    const [isOpen, setIsOpen] = useState(false);
+  const [students, setStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
 
-    const translate = useTranslate('data');
-    const alert = useAlert();
+  const translate = useTranslate("data");
+  const alert = useAlert();
 
-    useEffect(() => {
-        fetchStudents();
-    }, []);
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
-    const fetchStudents = async () => {
-        const response = await restClient.httpGet('students', {
-            queryInfo: {
-                pageIndex: 0,
-                pageSize: 10
-            },
-        });
+  const fetchStudents = async () => {
+    const response = await restClient.httpGet("students", {
+      queryInfo: {
+        pageIndex: 0,
+        pageSize: 10,
+      },
+    });
 
-        if (utils.evaluateArray(response.items)) {
-            setStudents(response.items);
+    if (utils.evaluateArray(response.items)) {
+      setStudents(response.items);
 
-            return;
-        }
-
-        setStudents([]);
+      return;
     }
 
-    const onDissmis = () => {
-        setIsOpen(false);
-        setSelectedStudent({});
+    setStudents([]);
+  };
+
+  const onDissmis = () => {
+    setIsOpen(false);
+    setSelectedStudent({});
+  };
+
+  const handleEditClick = (row) => {
+    setSelectedStudent(row);
+    setIsOpen(true);
+  };
+
+  const handleDeleteClick = async (row) => {
+    const response = await restClient.httpDelete("students", {
+      studendId: row.studendId,
+      studentIdentity: row.studentIdentity,
+    });
+
+    if (response.message === "Success") {
+      alert.success(translate("Record successfully deleted"));
+
+      fetchStudents();
     }
+  };
 
-    const handleEditClick = row => {
-        setSelectedStudent(row);
-        setIsOpen(true);
-    }
+  const handleSearch = (data) => {
+    setFilteredStudents(data.length > 0 ? data : null);
+  };
 
-    const handleDeleteClick = async row => {
-        const response = await restClient.httpDelete('students', {
-            studendId: row.studendId,
-            studentIdentity: row.studentIdentity
-        })
+  const handleGetData = (data) => {};
 
-        if (response.message === 'Success') {
-            alert.success(translate('Record successfully deleted'))
+  return (
+    <StudentsStyled>
+      <CommandBarControl
+        items={[
+          {
+            text: "add",
+            iconName: "add",
+            onClick: () => setIsOpen(true),
+          },
+        ]}
+      />
 
-            fetchStudents();
-        }
-    }
+      <ReadExcelFile
+        schema={{
+          Identidad: {
+            prop: "identity",
+            type: Number,
+          },
 
-    const handleSearch = data => {
-        setFilteredStudents(data.length > 0 ? data : null);
-    }
+          Nombres: {
+            prop: "names",
+            type: String,
+          },
 
-    const handleGetData = data => {
-    }
+          Apellidos: {
+            prop: "lastName",
+            type: String,
+          },
 
-    return (
-        <StudentsStyled>
-            <CommandBarControl items={[
-                {
-                    text: 'add',
-                    iconName: 'add',
-                    onClick: () => setIsOpen(true),
-                }
-            ]} />
+          "Correo Electronico": {
+            prop: "email",
+            type: String,
+          },
 
-            <ReadExcelFile schema={
-                {
-                    'Identidad': {
-                        prop: 'identity',
-                        type: Number,
-                    },
+          Direccion: {
+            prop: "address",
+            type: String,
+          },
 
-                    'Nombres': {
-                        prop: 'names',
-                        type: String,
-                    },
+          Telefono: {
+            prop: "phone",
+            type: Number,
+          },
 
-                    'Apellidos': {
-                        prop: 'lastName',
-                        type: String,
-                    },
+          Estado: {
+            prop: "status",
+            type: String,
+          },
+        }}
+        getData={handleGetData}
+      />
 
-                    'Correo Electronico': {
-                        prop: 'email',
-                        type: String,
-                    },
+      <TableControl
+        data={students}
+        columns={columnsStudentsTable(handleEditClick, handleDeleteClick)}
+        onSearch={handleSearch}
+      />
 
-                    'Direccion': {
-                        prop: 'address',
-                        type: String,
-                    },
-
-                    'Telefono': {
-                        prop: 'phone',
-                        type: Number,
-                    },
-
-                    'Estado': {
-                        prop: 'status',
-                        type: String,
-                    },
-                }}
-
-                getData={handleGetData}
-            />
-
-
-            <TableControl
-                data={students}
-                columns={columnsStudentsTable(handleEditClick, handleDeleteClick)}
-                onSearch={handleSearch} />
-
-            {isOpen && (
-                <StudentForm
-                    onRefresh={fetchStudents}
-                    studentSubject={selectedStudent}
-                    onDissmis={onDissmis}
-                />
-            )}
-        </StudentsStyled>
-    )
-}
-
+      {isOpen && (
+        <StudentForm
+          onRefresh={fetchStudents}
+          studentSubject={selectedStudent}
+          onDissmis={onDissmis}
+        />
+      )}
+    </StudentsStyled>
+  );
+};
 
 export default Students;
