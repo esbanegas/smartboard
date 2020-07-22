@@ -14,7 +14,7 @@ const HeaderApp = ({screenName, selectedLanguage, setSelectedLanguge }) => {
     const translate = useTranslate('data');
 
     const institute = {
-        name: 'CB 15 De Septiembre',
+        name: 'My SmartBoard',
         slogan: 'Cambiando Vidas'
     };
 
